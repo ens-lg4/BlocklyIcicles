@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>The Great Icicles of Saint Petersburg - Питерские сосули</title>
+    <script type="text/javascript" src="blockly_compressed.js"></script>
+
+    <!-- overridden behaviour of some of Blockly's core functions -->
+    <script type="text/javascript" src="hanoi_override.js"></script>
+
+    <!-- descriptions of the blocks used in the game -->
+    <script type="text/javascript" src="hanoi_blocks.js"></script>
+
+  <style>
+    body {
+      background-color: #fff;
+      font-family: sans-serif;
+    }
+    h1 {
+      font-weight: normal;
+      font-size: 140%;
+    }
+  </style>
+</head>
+<body>
+
+    <h1>The Great Icicles of Saint Petersburg - Питерские сосули</h1>
+    <i>The Great Icicles of Saint Petersburg</i> is the upside-down version of the famous <a href=http://en.wikipedia.org/wiki/Tower_of_Hanoi>Tower of Hanoi</a> game implemented using <a href=https://developers.google.com/blockly/>Blockly</a> library.<br/><br/>
+
+    I started implementing Hanoi Towers and then suddenly realized that you can grab and drag a stack of blocks that go downwards, not upwards of the block being dragged.
+    Thus towers turned into icicles.<br/><br/>
+
+    The goal of the game is to move the whole icicle (3-2-1) from under "Start" base block to under "Finish" base block.
+    However unlike the "regular" Blockly behaviour, icicles are not draggable in stacks, so you should only be able to move one block at a time.
+    Neither are you allowed to leave them lying around in the workspace - they have to be attached to one of the bases unless being dragged.
+
+    <div id="blocklyDiv" style="float: left; width: 100%; height: 300px"></div>
+
+	<xml id="initial_workspace_state" style="display: none">
+        <block type="base" x="10" y="15">
+            <field name="block_label">Start</field>
+            <next>
+                <block type="disk3">
+                    <next>
+                        <block type="disk2">
+                            <next>
+                                <block type="disk1"></block>
+                            </next>
+                        </block>
+                    </next>
+                </block>
+            </next>
+        </block>
+
+        <block type="base" x="160" y="15">
+            <field name="block_label">Transit</field>
+        </block>
+
+        <block type="base" x="310" y="15">
+            <field name="block_label">Finish</field>
+        </block>
+    </xml>
+
+  <script>
+
+	Blockly.inject(document.getElementById('blocklyDiv'), {
+        media: 'media/',    // to avoid reaching to the web for icons
+		sound: false,
+		collapse: false, comments: true, disable: false, scrollbars: false, trashcan: false // those ones are automatically true when there are categories
+	});
+
+    Blockly.mainWorkspace.clear();
+
+    Blockly.Xml.domToWorkspace(Blockly.mainWorkspace, document.getElementById('initial_workspace_state'));
+
+  </script>
+
+</body>
+</html>
