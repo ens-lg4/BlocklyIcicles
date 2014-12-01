@@ -77,7 +77,9 @@ Blockly.Blocks['disk1'] = {
     } while (block);
     
     if(rootBlock.getFieldValue( 'block_label' )=='Finish' && pathLength==3) {   // FIXME: the magic constant is the number of disks in the game
-        alert('Game over, well done!');
+        this.setMovable(false);
+        this.setColour(180);
+        rootBlock.setFieldValue('Game over!', 'block_label');
     }
   }
 };

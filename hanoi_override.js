@@ -43,10 +43,6 @@ Blockly.Connection.prototype.connect = function(otherConnection) {
         prevParent.setMovable(true);
         prevParent.setColour(120);
     }
-
-    if(childBlock.checkGameOver) {
-        childBlock.checkGameOver.call(childBlock);
-    }
 };
 
 
@@ -56,11 +52,15 @@ var original_onMouseUp_ = Blockly.Block.prototype.onMouseUp_;
 Blockly.Block.prototype.onMouseUp_ = function(e) {
     if(Blockly.selected && Blockly.highlightedConnection_) {
         original_onMouseUp_.call(this, e);
+
+        if(this.checkGameOver) {
+            this.checkGameOver.call(this);
+        }
     }
 };
 
 
-    // this override prevents the block being dragged to bind to one of the "busy" connections inside a statement stack:
+    // this override prevents the block being dragged to dock to one of the "busy" connections inside a statement stack:
 var original_onMouseMove_ = Blockly.Block.prototype.onMouseMove_;
 
 Blockly.Block.prototype.onMouseMove_ = function(e) {
