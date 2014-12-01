@@ -58,3 +58,19 @@ Blockly.Block.prototype.onMouseUp_ = function(e) {
         original_onMouseUp_.call(this, e);
     }
 };
+
+
+    // this override prevents the block being dragged to bind to one of the "busy" connections inside a statement stack:
+var original_onMouseMove_ = Blockly.Block.prototype.onMouseMove_;
+
+Blockly.Block.prototype.onMouseMove_ = function(e) {
+    original_onMouseMove_.call(this, e);
+
+    if(Blockly.highlightedConnection_) {
+        if(Blockly.highlightedConnection_.targetConnection != null) {
+            Blockly.highlightedConnection_.unhighlight();
+            Blockly.highlightedConnection_ = null;
+        }
+    }
+};
+
